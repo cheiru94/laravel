@@ -16,7 +16,7 @@
         </style>
     </head>
     <body class="antialiased">
-       
+       {{-- 세일 버전 --}}
         {{-- 1. 회원가입 --}}
         <div>
             <a href="/users/create" style="font-size: 200px">1. 회원가입</a>
