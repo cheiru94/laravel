@@ -11,6 +11,6 @@ class Phone extends Model
 
     public function user() {
         return $this->belongsTo(User::class);
-        // return $this->belongsTo(User::class,"user_id","id");  이것과 같은 의미
+        // return $this->belongsTo(User::class,"user_id","id");  이것과 같은 의미!!
     }
 }
