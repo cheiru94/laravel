@@ -42,4 +42,10 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function phone() {
+        return $this->hasOne(Phone::class,);
+        // return $this->hasOne(Phone::class,"user_id","id"); 이것과 같은 의미
+        // 팅거는 변경된 내용을 적용시켜 주지 않는다....;;
+    }
 }

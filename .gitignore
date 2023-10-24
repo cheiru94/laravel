@@ -17,3 +17,11 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+storage/.DS_Store
+.gitignore
+resources/.DS_Store
+database/.DS_Store
+.gitignore
+app/.DS_Store
+.gitignore
+.gitignore
