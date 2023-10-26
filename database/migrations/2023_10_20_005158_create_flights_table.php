@@ -27,6 +27,7 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
+    //  ✏️ php artisan migrate 명령어가 실행되면 up 메소드가 실행된다 
     public function up(): void
     {
         Schema::create('flights', function (Blueprint $table) {
@@ -44,6 +45,7 @@ return new class extends Migration
     /**
      * Reverse the migrations.
      */
+    // ✏️ php artisan migrate::rollback 명령어가 실행되면 up 메소드가 실행된다
     public function down(): void
     {
         Schema::dropIfExists('flights');
