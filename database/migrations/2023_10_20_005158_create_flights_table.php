@@ -33,12 +33,12 @@ return new class extends Migration
         Schema::create('flights', function (Blueprint $table) {
              /* 🟢 추가할 컬럼들 작성 🟢 */
             // UnsignedBigInt 타입의 auto_increament primary key id컬럼 생성.
-            $table->id(); 
+            $table->id();  // 프라이머리 키로 생성
             $table->string("name");  /* name이라는 칼럼을 문자열 저정할 수 있는 타입으로 만들어라 */
             $table->string("airline");  /* airline이라는 칼럼을 문자열 저정할 수 있는 타입으로 만들어라 */
 
             // datatime 데이타 타입으로 created_at, updated_at 이라는 두개의 칼럼을 만들어 준다.
-            $table->timestamps();
+            $table->timestamps();// 만들어지는 테이블에 2개의 칼럼을 추가 시킨다.    1.created_at:레코드가 삽입되는 시간  2.updated_at:레코드가 변경되는 시간  => 자동으로 생성해 준다. 
         });
     }
 
