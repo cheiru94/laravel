@@ -44,8 +44,16 @@ class User extends Authenticatable
     ];
 
     public function phone() {
-        return $this->hasOne(Phone::class,);
+        return $this->hasOne(Phone::class);
         // return $this->hasOne(Phone::class,"user_id","id"); 이것과 같은 의미
         // 팅거는 변경된 내용을 적용시켜 주지 않는다....;;
+    }
+
+    public function comments(){
+        return $this->hasMany(Comment::class);
+    }
+
+    public function posts(){
+        return $this->hasMany(Post::class);
     }
 }
