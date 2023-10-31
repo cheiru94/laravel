@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use App\Models\Post;
 use Illuminate\Http\Request;
 
@@ -195,8 +196,8 @@ class PostConroller extends Controller
         //Post::where('id','>',$id) ->orWhere('name','홍길동')->get();
 
 
-
-        return view('posts.show_post', ['post' => $post]);
+        $postAll = Comment::all();
+        return view('posts.show_post', ['post' => $post , 'postAll'=>$postAll]);
     }
 
     /**
