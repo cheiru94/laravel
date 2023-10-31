@@ -43,7 +43,7 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    public function phone() {
+    public function phone() { // 사용자 와 phone도 1:1 관계 
         return $this->hasOne(Phone::class);
         // return $this->hasOne(Phone::class,"user_id","id"); 이것과 같은 의미
         // 팅거는 변경된 내용을 적용시켜 주지 않는다....;;
