@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostConroller;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -55,12 +56,10 @@ Route::delete('/removeupup',[UserController::class, 'test']);
 
 
 
-
 Route::get('/', function () {
     return view('welcome',['users'=>[]]); 
     /* users에 나중에 들어오는 값을 채우기 위해 그리고 시작 시 에러 나지 않게 하기 해서 빈 배열을 작성해 놓는다 */
 });
-
 
 
 
@@ -72,5 +71,11 @@ Route::resource('/users', UserController::class);
 /* => 이렇게 하나로 다 통일하면 자동으로 알아서 매핑시켜준다.  */
 
 
-
+// PostConroller 
 Route::resource('/posts', PostConroller::class);
+
+
+// CommentController 중첩 리소스로 정의한다 : nested resource  (공식문서 참조)
+Route::resource('/posts.comments',CommentController::class)->except(['create']); //except()를 시용해  이렇게 지정한 메소드는 빼고 라우팅 시킬 수 있다
+//         =>   /post/{post}/comments/{comment} 라는 듯이 된다. 
+// Route::resource('comments',CommentController::class);
