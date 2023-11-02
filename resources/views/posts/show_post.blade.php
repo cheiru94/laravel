@@ -8,7 +8,8 @@
     <title>게시글 상세보기</title>
 </head>
 
-<body>
+<body>  
+    <div><a href="/posts">목록보기로 돌아가기</a></div>
     {{-- 모델객체를 손도 안 댓는데 이란다 대박 --}}  
     <h1 style="text-align: center">상세 보기 페이지</h1>
 
@@ -49,7 +50,7 @@
     {{-- 댓글 보여주기 --}}
     <div>
         <div class="inner">
-            <h2>댓글 리스트 </h2>
+            <h2>댓글 리스트 ({{$post->comments->count()}}개)</h2>
             <button><a href="/posts/create" style=" text-decoration: none; /* 밑줄 제거 */ color: #fff">게시글 작성하기</a></button>
         </div> 
        <table style=" border : 1px solid black; ">
@@ -69,23 +70,47 @@
                 즉, $post에는 한 번에 하나의 레코드 정보만 들어있습니다. 
                 그러나 반복문을 통해 전체 $posts 배열을 순회하면서 모든 레코드들에 대한 정보를 처리할 수 있습니다
             --}}
-            @foreach ($postAll as $post)
+            @foreach ($post->comments as $comment)
                 <tr>
                     <th>연번</th>
                     <th>제목</th>
                     <th>작성자</th>
                     <th>작성일</th>
                 </tr>
-                <tr>
-                    {{-- index는 loop에서 가져 꺼내야 한다.  --}}
-                    <td>{{ $loop->index + 1 }}</td> {{-- //반복에서 뽑아 낼 수 있도록 --}}
-                    <td>{{ $post->content }}</td> {{-- 앵커 태그는 전부 get 방식으로 보낸다 --}}
-                    <td>{{ $post->user_id }}</td>
-                    <td>{{ $post->created_at }}</td>
-                </tr>
+                <form action="/posts/{{$post->id}}/comments/{{$comment->id}}"
+                     method="post" id="{{$loop->index+1}}">
+                    
+                    <tr>
+                        {{-- index는 loop에서 가져 꺼내야 한다.  --}}
+                        <td>{{ $loop->index + 1 }}</td> {{-- //반복에서 뽑아 낼 수 있도록 --}}
+                        <td><input type="text" name="content" value="{{ $comment->content }}"></td> {{-- 앵커 태그는 전부 get 방식으로 보낸다 --}}
+                        <td>{{ $comment->user_id }}</td>
+                        <td>{{ $comment->created_at }}</td>
+                        <td><input type="submit" value="수정"></td>
+                        <td><input type="submit" value="삭제" onclick="return send_delete({{$loop->index+1}})"></td>
+                        @csrf
+                        @method("put")
+                    </tr>
+                </form>
             @endforeach
         </table>
     </div>
+    <script>
+        const send_delete = (id) =>{
+            const result = confirm('니 진짜 삭제 할끼가???');
+            console.log('니 진짜 지울꺼가??');
+            if (!!resul) {
+                return false;
+            } 
+            // 이 html 문서에서 이름이 _method 인 DOM 객체를 찾아서
+            // 그 객체의 value 값을 "delete"로 변경하고 return true 하면
+            // 서버로 요청이 발송된다.
+            const formTag = document.getElementById()
+            const methodTags =  document.getElementsByName("    ");
+            methodTags[0].valuee = "delete";
+            return false;
+        }
+    </script>
     
 </body>
 
