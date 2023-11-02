@@ -196,9 +196,12 @@ class PostConroller extends Controller
         //Post::where('id','>',$id) ->orWhere('name','홍길동')->get();
 
 
-        $postAll = Comment::all();
-        return view('posts.show_post', ['post' => $post , 'postAll'=>$postAll]);
+
+        return view('posts.show_post', ['post' => $post ]);
     }
+
+
+
 
     /**
      * Show the form for editing the specified resource.
