@@ -6,6 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>게시글 상세보기</title>
+
+    {{-- 자바스크립트 내용 --}}
+    <script type="text/javascript">
+        function send_delete(num) {
+
+            return confirm("니 진짜 지울래?");
+
+        }
+    </script>
 </head>
 
 <body>  
@@ -13,44 +22,46 @@
     {{-- 모델객체를 손도 안 댓는데 이란다 대박 --}}  
     <h1 style="text-align: center">상세 보기 페이지</h1>
 
-    <div style="">
-        <h2>제목 : {{ $post->title }}</h2>
-        <h2>내용 : {{ $post->content }}</h2>
-        <h2>작성자 : {{ $post->user_id }}</h2>
-        <h2>생성일 : {{ $post->created_at }}</h2>
-        <h2>수정일 : {{ $post->updated_at }}</h2>
-    </div>
+    <div> 제목: {{$post->title}} </div>
+    <div> 내용: {{$post->content}}</div>
+    <div> 작성자: {{$post->user_id}}</div>
+    <div> 생성일: {{$post->created_at}}</div>
+    <div> 수정일: {{$post->updated_at}}</div>  
 
     {{-- 🟠 버튼 --}}
     <div >
+
         {{-- 🚩 수정 버튼  --}} {{-- 그럼 posts 컨트롤러의 edit 메소드가 이 받은 내용을 처리해 줘야 한다 --}}
         <div style="display: flex; width:300px; ">
-            <form action="/posts/{{ $post->id }}/edit" method="get" style="margin-right: 10px"> {{-- 이거는 앵커 태그로 보내도 된다  --}}
+            <form action="/posts/{{$post->id}}/edit" method="get" style="margin-right: 10px"> {{-- 이거는 앵커 태그로 보내도 된다  --}}
                 <input type="submit" value="수정" /> {{-- put , patch 방식으로 보내야 한다 --}}
             </form>
             {{-- 🚩 삭제 버튼 --}}
-            <form action="" method="post" onsubmit="return confirm('정말로 삭제하시겠습니까?');">
+            <form style="display:inline-block" onsubmit="return confirm('Are you sure to delete?')" action="/posts/{{$post->id}}" method="post">
                 @csrf
-                @method('delete')
-                <input type="submit" value="삭제" /> {{-- delete 방식으로 보내야 한다  --}}
-            </form>
+                @method("delete")
+                <input type="submit" value="삭제"/> {{-- delete 방식으로 보내야 한다. --}}
+              </form> 
         </div>
-        {{-- 🍑댓글 추가  --}}
+
         <hr>
+
+        {{-- 🍑댓글 추가  --}}
         <h4>댓글 등록</h4>
-        <form method="post" action="/posts/{{$post->id}}/comments">
+        <form action="/posts/{{$post->id}}/comments" method="post">
             @csrf
             <div>
-              <textarea cols="30" rows="1" name="content"></textarea>
-            </div>
-            <input type="submit" value="댓글 등록">
+              <textarea rows="1" cols="30" required name="content"></textarea>
+            </div>  
+            <input type="submit" value="댓글등록">
         </form>
+
     </div>
 
     {{-- 댓글 보여주기 --}}
     <div>
         <div class="inner">
-            <h2>댓글 리스트 ({{$post->comments->count()}}개)</h2>
+            <h2>댓글 리스트 ({{$post->comments->count()}}개) </h2>
             <button><a href="/posts/create" style=" text-decoration: none; /* 밑줄 제거 */ color: #fff">게시글 작성하기</a></button>
         </div> 
        <table style=" border : 1px solid black; ">
@@ -70,36 +81,43 @@
                 즉, $post에는 한 번에 하나의 레코드 정보만 들어있습니다. 
                 그러나 반복문을 통해 전체 $posts 배열을 순회하면서 모든 레코드들에 대한 정보를 처리할 수 있습니다
             --}}
-            @foreach ($post->comments as $comment)
+
+            
+            <tr>
+                <th>연번</th>  <th>제목</th> <th>작성자</th>  <th>작성일</th>
+            </tr>
+            {{-- @foreach ($post->comments as $comment) --}}
+            @foreach($post->comments()->orderBy('created_at', 'desc')->get() as $comment)
                 <tr>
-                    <th>연번</th>
-                    <th>제목</th>
-                    <th>작성자</th>
-                    <th>작성일</th>
-                </tr>
-                <form action="/posts/{{$post->id}}/comments/{{$comment->id}}"
-                     method="post" id="{{$loop->index+1}}">
-                    
-                    <tr>
+                    {{-- put --}}
+                    <form action="/posts/{{$post->id}}/comments/{{$comment->id}}" 
+                        method="post">
                         {{-- index는 loop에서 가져 꺼내야 한다.  --}}
                         <td>{{ $loop->index + 1 }}</td> {{-- //반복에서 뽑아 낼 수 있도록 --}}
                         <td><input type="text" name="content" value="{{ $comment->content }}"></td> {{-- 앵커 태그는 전부 get 방식으로 보낸다 --}}
                         <td>{{ $comment->user_id }}</td>
                         <td>{{ $comment->created_at }}</td>
                         <td><input type="submit" value="수정"></td>
-                        <td><input type="submit" value="삭제" onclick="return send_delete({{$loop->index+1}})"></td>
                         @csrf
                         @method("put")
+                    </form>
+
+                    {{-- delete --}}
+                    <form action="/posts/{{$post->id}}/comments/{{$comment->id}}" method="post">
+                        <td><input type="submit" onclick="return send_delete()" value="삭제"></td>
+                        @csrf
+                        @method("delete")
+                    </form>
+
                     </tr>
-                </form>
             @endforeach
         </table>
     </div>
-    <script>
+    {{-- <script>
         const send_delete = (id) =>{
             const result = confirm('니 진짜 삭제 할끼가???');
             console.log('니 진짜 지울꺼가??');
-            if (!!resul) {
+            if (result == false) {
                 return false;
             } 
             // 이 html 문서에서 이름이 _method 인 DOM 객체를 찾아서
@@ -111,7 +129,7 @@
             return false;
         }
     </script>
-    
+     --}}
 </body>
 
 </html>

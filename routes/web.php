@@ -77,6 +77,5 @@ Route::resource('/posts', PostConroller::class);
 
 // CommentController 중첩 리소스로 정의한다 : nested resource  (공식문서 참조)
 Route::resource('/posts.comments',CommentController::class)->except(['create','show','index','edit']); //except()를 시용해  이렇게 지정한 메소드는 빼고 라우팅 시킬 수 있다
-// Route::resource('/posts.comments',CommentController::class)->only(['store','update','destroy']); // 이거랑 같은 의미이다
-//         =>   /post/{post}/comments/{comment} 라는 듯이 된다. 
+// Route::resource('/posts.comments',CommentController::class)->only(['store','update','destroy']); // 이거랑 같은 의미이다 -> only안에는 메소드 이름을 적어줘야 한다. 
 // Route::resource('comments',CommentController::class);

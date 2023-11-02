@@ -40,9 +40,20 @@ class Post extends Model // 모델이 만들어졌고 이 객체를 통해 인�
     // return $this->hasMany(Comment::class,'post_id','id');
     return $this->hasMany(Comment::class);
   }
+
+
+  public function latestComment(){
+    return $this->hasOne(Comment::class)->latestOfMany(); //가장 최근 댓글을 가져온다.
+  }
+
+  public function oldestComment(){
+    return $this->hasOne(Comment::class)->oldestOfMany(); //가장 최근 댓글을 가져온다.
+
+  }
   public function user() {  
     return $this->belongsTo(User::class);
     // return $this->belongsTo(User::class,"user_id","id");  이것과 같은 의미!!
-}
+  }
+
 
 }
