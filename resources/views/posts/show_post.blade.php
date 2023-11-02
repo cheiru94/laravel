@@ -62,7 +62,7 @@
     <div>
         <div class="inner">
             <h2>댓글 리스트 ({{$post->comments->count()}}개) </h2>
-            <button><a href="/posts/create" style=" text-decoration: none; /* 밑줄 제거 */ color: #fff">게시글 작성하기</a></button>
+            
         </div> 
        <table style=" border : 1px solid black; ">
             {{--
