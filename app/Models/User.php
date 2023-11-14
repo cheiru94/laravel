@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -88,4 +89,15 @@ class User extends Authenticatable
     // 2번 사용자가 작성한 게시글에 대한 모든 댓글들 가져오기.
     //  - 2번 사용자가 작성한 게시글은  5,6,7
     //  - 이 5,6,7 번 게시글에 대한 댓글은 1,2,4,6
+
+
+    // Role과의 N:M 관계를 정의하는 메서드를 정의하자
+    // public function roles(){
+    //   return $this->belongsToMany(Role::class);
+    // } 
+
+    // 🟢 위에는 이게 생략된 내용이다.
+    public function roles(){
+      return $this->belongsToMany(Role::class,'role_user','user_id','role_id','id','id'); 
+    } 
 }
