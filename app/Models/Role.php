@@ -17,6 +17,7 @@ class Role extends Model
     // } 
     // 🟢 위에는 이게 생략된 내용이다.
     public function users(){
-      return $this->belongsToMany(User::class,'role_user','role_id','user_id','id','id'); 
+      return $this->belongsToMany(User::class,'role_user','role_id','user_id','id','id')->withTimestamps(); 
+      // 관계를 정의하기 위한 테이블에 타임스템프를 넣고 싶으면 이렇게 직접 지시를 해야 타임스탬프가 생긴다.
     } 
 }

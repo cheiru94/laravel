@@ -98,6 +98,7 @@ class User extends Authenticatable
 
     // 🟢 위에는 이게 생략된 내용이다.
     public function roles(){
-      return $this->belongsToMany(Role::class,'role_user','user_id','role_id','id','id'); 
+      return $this->belongsToMany(Role::class,'role_user','user_id','role_id','id','id')->withTimestamps(); 
+      // 서로 withTimestamps를 지정해주면 내부적으로 서로의 피벗 테이블로 접근해서 설정을 해준다.
     } 
 }
