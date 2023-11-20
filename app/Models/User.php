@@ -98,7 +98,10 @@ class User extends Authenticatable
 
     // 🟢 위에는 이게 생략된 내용이다.
     public function roles(){
-      return $this->belongsToMany(Role::class,'role_user','user_id','role_id','id','id')->withTimestamps(); 
+                         // 매개 테이블에서 사용할 칼럼들은 꼭 명시를 해줘야한다. withTimestamps 와 withPivot 메서드를 사용해서....
+      return $this->belongsToMany(Role::class,'role_user','user_id','role_id','id','id')->withTimestamps()->withPivot(['active']); 
       // 서로 withTimestamps를 지정해주면 내부적으로 서로의 피벗 테이블로 접근해서 설정을 해준다.
+      // return $this->belongsToMany(Role::class)->withPivot(['created_'])
+
     } 
 }
