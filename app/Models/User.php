@@ -104,4 +104,10 @@ class User extends Authenticatable
       // return $this->belongsToMany(Role::class)->withPivot(['created_'])
 
     } 
+
+    public function goods(){
+      return $this->belongsToMany(Good::class)
+      ->as('order')
+      ->withPivot(['ordered_date','amount']);
+    }
 }
