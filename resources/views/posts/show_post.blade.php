@@ -89,7 +89,7 @@
             {{-- @foreach ($post->comments as $comment) --}}
             @foreach($post->comments()->orderBy('created_at', 'desc')->get() as $comment)
                 <tr>
-                    {{-- put --}}
+                    {{-- 수정 : put --}}
                     <form action="/posts/{{$post->id}}/comments/{{$comment->id}}" 
                         method="post">
                         {{-- index는 loop에서 가져 꺼내야 한다.  --}}
@@ -102,7 +102,7 @@
                         @method("put")
                     </form>
 
-                    {{-- delete --}}
+                    {{-- 삭제 : delete --}}
                     <form action="/posts/{{$post->id}}/comments/{{$comment->id}}" method="post">
                         <td><input type="submit" onclick="return send_delete()" value="삭제"></td>
                         @csrf
