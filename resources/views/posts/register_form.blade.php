@@ -61,25 +61,20 @@
     <div class="form-container" style="width: 500px; margin-left:30px; margin-top:30px; ">
         <h1>게시글 작성</h1>
 
+        {{-- 폼 태그로 전달 --}}
         <form action="/posts" method="post">
-
             @csrf
-
-
+            {{-- 제목 , 내용 --}}
             <label>제목: <input type="text" name="title"></label><br>
-
             <label>내용 :
                 <textarea name="content" rows="5"></textarea>
             </label>
-
            
-                        {{-- 버튼 --}}
+            {{-- 버튼 --}}
             <div class="text-center" style="margin-top:30px;">
                 <input type="submit"value="등록">
             </div>
         </form>
-
-
     </div>
 
 
