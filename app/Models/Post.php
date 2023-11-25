@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model // 모델이 만들어졌고 이 객체를 통해 인스턴스를 만들면 db에 넣을 수 있다. 
 {
-    use HasFactory; // post 모델 만들 때 erm 자동으로 만들어준다
+  use HasFactory; // post 모델 만들 때 erm 자동으로 만들어준다
 
-    // 추가로 이렇게 명시적으로 $table속성을 지정해도 된다.
+  // 추가로 이렇게 명시적으로 $table속성을 지정해도 된다.
 
   // 만약에 테이블 이름과 일치 하지 않을 때는 이렇게 명시적으로 연결을 해줘야 한다. 
   // protected $table = 'posts';    // => 🟢posts 테이블과 연결 된다
@@ -36,24 +36,26 @@ class Post extends Model // 모델이 만들어졌고 이 객체를 통해 인�
   // protected $garded = ['created_at', 'updated_at']; // ⚫허용하지 않는 칼럼들 : 블래 리스트
   // 블랙 리스트에 없는 거 배고 걍 전부 다 만든다... _token도 만들어 버린다.
 
-  public function comments(){ // post와 1:n의 관계 
+  public function comments()
+  { // post와 1:n의 관계 
     // return $this->hasMany(Comment::class,'post_id','id');
     return $this->hasMany(Comment::class);
   }
 
 
-  public function latestComment(){
+  public function latestComment()
+  {
     return $this->hasOne(Comment::class)->latestOfMany(); //가장 최근 댓글을 가져온다.
   }
 
-  public function oldestComment(){
-    return $this->hasOne(Comment::class)->oldestOfMany(); //가장 최근 댓글을 가져온다.
+  public function oldestComment()
+  {
+    return $this->hasOne(Comment::class)->oldestOfMany(); //가장 오래된 댓글을 가져온다.
 
   }
-  public function user() {  
+  public function user()
+  {
     return $this->belongsTo(User::class);
     // return $this->belongsTo(User::class,"user_id","id");  이것과 같은 의미!!
   }
-
-
 }
