@@ -36,6 +36,11 @@ class Post extends Model // 모델이 만들어졌고 이 객체를 통해 인�
   // protected $garded = ['created_at', 'updated_at']; // ⚫허용하지 않는 칼럼들 : 블래 리스트
   // 블랙 리스트에 없는 거 배고 걍 전부 다 만든다... _token도 만들어 버린다.
 
+
+  // ✏️ Post 모델은 기본으로 연계된 Ratings를 함께 즉시 적재한다.
+  protected $with = ['ratings'];
+
+
   public function comments()
   { // post와 1:n의 관계 
     // return $this->hasMany(Comment::class,'post_id','id');
