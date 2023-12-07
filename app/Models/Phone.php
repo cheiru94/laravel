@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Phone extends Model
 {
-    use HasFactory;
+  use HasFactory;
 
-    public function user() {
-        return $this->belongsTo(User::class);
-        // return $this->belongsTo(User::class,"user_id","id");  이것과 같은 의미!!
-    }
+  protected $fillable = ['num'];
+  public function user()
+  {
+    return $this->belongsTo(User::class);
+    // return $this->belongsTo(User::class,"user_id","id");  이것과 같은 의미!!
+  }
 }
