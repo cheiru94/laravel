@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model // 모델이 만들어졌고 이 객체를 통해 인스턴스를 만들면 db에 넣을 수 있다. 
 {
-  use HasFactory; // post 모델 만들 때 erm 자동으로 만들어준다
+  use HasFactory; // 트레이트 : post 모델 만들 때 erm 자동으로 만들어준다
 
   // 추가로 이렇게 명시적으로 $table속성을 지정해도 된다.
 
